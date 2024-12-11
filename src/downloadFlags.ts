@@ -17,7 +17,10 @@ async function downloadFlags() {
       const buffer = await response.arrayBuffer();
 
       // Save flag with country code as filename
-      const filePath = path.join(flagsDir, `${country[0].toLowerCase()}.svg`);
+      const filePath = path.join(
+        flagsDir,
+        `${country[0].toLowerCase()}${path.extname(country[1].toString())}`
+      );
       fs.writeFileSync(filePath, Buffer.from(buffer));
 
       console.log(`Downloaded flag for ${country[0]}: ${country[1]}`);

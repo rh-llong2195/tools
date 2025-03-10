@@ -1,12 +1,12 @@
-import * as fs from "fs";
-import * as path from "path";
+import { existsSync, mkdirSync, writeFileSync } from "node:fs";
+import { extname, join } from "node:path";
 import { FLAG } from "./flag";
 
 async function downloadFlags() {
   // Create flags directory if it doesn't exist
-  const flagsDir = path.join(__dirname, "flags2");
-  if (!fs.existsSync(flagsDir)) {
-    fs.mkdirSync(flagsDir);
+  const flagsDir = join(__dirname, "flags2");
+  if (!existsSync(flagsDir)) {
+    mkdirSync(flagsDir);
   }
 
   // Download flags
@@ -17,11 +17,11 @@ async function downloadFlags() {
       const buffer = await response.arrayBuffer();
 
       // Save flag with country code as filename
-      const filePath = path.join(
+      const filePath = join(
         flagsDir,
-        `${country[0].toLowerCase()}${path.extname(country[1].toString())}`
+        `${country[0].toLowerCase()}${extname(country[1].toString())}`
       );
-      fs.writeFileSync(filePath, Buffer.from(buffer));
+      writeFileSync(filePath, Buffer.from(buffer));
 
       console.log(`Downloaded flag for ${country[0]}: ${country[1]}`);
     } catch (error) {

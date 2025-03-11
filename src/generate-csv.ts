@@ -105,7 +105,7 @@ const csvConfig: FieldConfig[] = [
 // Example 1: Generate CSV directly to file (most memory efficient)
 async function example1() {
   console.time("File generation");
-  await generateCSVFile("large-dataset.csv", csvConfig, 130000, {
+  await generateCSVFile("large-dataset.csv", csvConfig, 100000, {
     highWaterMark: 64 * 1024, // 64KB buffer for better performance
   });
   console.timeEnd("File generation");
@@ -114,7 +114,7 @@ async function example1() {
 // Example 2: Create a stream and pipe it (flexible approach)
 function example2() {
   console.time("Stream piping");
-  const csvStream = createCSVStream(csvConfig, 130000);
+  const csvStream = createCSVStream(csvConfig, 100000);
   const fileStream = createWriteStream("streamed-dataset.csv");
 
   csvStream.pipe(fileStream);
